@@ -28,12 +28,19 @@ const MainContent: React.FC = () => {
 
   useEffect(() => {
     const init = async () => {
-      const provider = (await connector?.getProvider()) as EthereumProvider;
-      await handleInit(provider);
-      await fetchUnifiedBalance();
+      if (!connector || !address) return;
+      try {
+        const provider = (await connector.getProvider()) as EthereumProvider;
+        if (provider) {
+          await handleInit(provider);
+          await fetchUnifiedBalance();
+        }
+      } catch (error) {
+        console.error("Failed to initialize Nexus:", error);
+      }
     };
     init();
-  }, [handleInit, fetchUnifiedBalance, connector]);
+  }, [connector, address]); // Only depend on connector and address, not the functions
 
   return (
     <div className="space-y-8">
@@ -148,16 +155,16 @@ const App: React.FC = () => {
   return (
     <ThemeProvider>
       <WalletProvider>
-        <WagmiProvider config={wagmiConfig}>
+      <WagmiProvider config={wagmiConfig}>
           <NexusProvider>
-            <GasFountainProvider>
-              <Layout>
-                <Header />
-                <MainContent />
-              </Layout>
+        <GasFountainProvider>
+            <Layout>
+              <Header />
+              <MainContent />
+            </Layout>
             </GasFountainProvider>
           </NexusProvider>
-        </WagmiProvider>
+      </WagmiProvider>
       </WalletProvider>
     </ThemeProvider>
   );

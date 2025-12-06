@@ -155,9 +155,11 @@ export class TreasuryDistributionService {
 
       for (const [network, config] of Object.entries(addresses)) {
         const chainConfig = config as any;
-        if (chainConfig.chainId && chainConfig.treasuryAddress) {
-          this.treasuryAddresses.set(chainConfig.chainId, chainConfig.treasuryAddress);
-          console.log(`Loaded Treasury address for chain ${chainConfig.chainId}: ${chainConfig.treasuryAddress}`);
+        // Support both 'address' and 'treasuryAddress' keys for backward compatibility
+        const treasuryAddr = chainConfig.treasuryAddress || chainConfig.address;
+        if (chainConfig.chainId && treasuryAddr) {
+          this.treasuryAddresses.set(chainConfig.chainId, treasuryAddr);
+          console.log(`Loaded Treasury address for chain ${chainConfig.chainId}: ${treasuryAddr}`);
         }
       }
     } catch (error) {

@@ -1,0 +1,57 @@
+{
+  "coston2": {
+    "chainId": 114,
+    "address": "0xc031c437d6b915dbdc946dbd8613a1ac9dd75d63",
+    "deployedAt": "2024-12-06T00:00:00.000Z"
+  },
+  "sepolia": {
+    "chainId": 11155111,
+    "address": "0x5b402676535a3ba75c851c14e1e249a4257d2265",
+    "deployedAt": "2024-12-06T00:00:00.000Z"
+  },
+  "polygonAmoy": {
+    "chainId": 80002,
+    "address": "0x5b402676535a3ba75c851c14e1e249a4257d2265",
+    "deployedAt": "2024-12-06T00:00:00.000Z"
+  },
+  "arbitrumSepolia": {
+    "chainId": 421614,
+    "address": "0x5b402676535a3ba75c851c14e1e249a4257d2265",
+    "deployedAt": "2024-12-06T00:00:00.000Z"
+  },
+  "optimismSepolia": {
+    "chainId": 11155420,
+    "address": "0x5b402676535a3ba75c851c14e1e249a4257d2265",
+    "deployedAt": "2024-12-06T00:00:00.000Z"
+  },
+  "baseSepolia": {
+    "chainId": 84532,
+    "address": "0x5b402676535a3ba75c851c14e1e249a4257d2265",
+    "deployedAt": "2024-12-06T00:00:00.000Z"
+  },
+  "worldSepolia": {
+    "chainId": 4801,
+    "address": "0x5b402676535a3ba75c851c14e1e249a4257d2265",
+    "deployedAt": "2024-12-06T00:00:00.000Z"
+  },
+  "zoraSepolia": {
+    "chainId": 999999999,
+    "address": "0x5b402676535a3ba75c851c14e1e249a4257d2265",
+    "deployedAt": "2024-12-06T00:00:00.000Z"
+  },
+  "scrollSepolia": {
+    "chainId": 534351,
+    "address": "0x5b402676535a3ba75c851c14e1e249a4257d2265",
+    "deployedAt": "2024-12-06T00:00:00.000Z"
+  },
+  "avalancheFuji": {
+    "chainId": 43113,
+    "address": "0x5b402676535a3ba75c851c14e1e249a4257d2265",
+    "deployedAt": "2024-12-06T00:00:00.000Z"
+  },
+  "bscTestnet": {
+    "chainId": 97,
+    "address": "0x5b402676535a3ba75c851c14e1e249a4257d2265",
+    "deployedAt": "2024-12-06T00:00:00.000Z"
+  }
+}

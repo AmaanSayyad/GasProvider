@@ -1,13 +1,4 @@
 import {
-  mainnet,
-  arbitrum,
-  base,
-  optimism,
-  bsc,
-  bscTestnet,
-  avalanche,
-  scroll,
-  zora,
   Chain,
 } from "viem/chains";
 import { ChainData } from "../types";
@@ -28,32 +19,7 @@ export const TREASURY_ADDRESSES: Record<number, string> = {
   97: "0x5b402676535a3ba75c851c14e1e249a4257d2265", // BSC Testnet
 };
 
-// Define Flare chains (not in viem/chains yet)
-const flare: Chain = {
-  id: 14,
-  name: "Flare",
-  nativeCurrency: {
-    name: "Flare",
-    symbol: "FLR",
-    decimals: 18,
-  },
-  rpcUrls: {
-    default: {
-      http: ["https://flare-api.flare.network/ext/C/rpc"],
-    },
-    public: {
-      http: ["https://flare-api.flare.network/ext/C/rpc"],
-    },
-  },
-  blockExplorers: {
-    default: {
-      name: "Flare Explorer",
-      url: "https://flare-explorer.flare.network",
-    },
-  },
-  testnet: false,
-};
-
+// Define Flare testnet chain (not in viem/chains yet)
 const coston2: Chain = {
   id: 114,
   name: "Coston2",
@@ -306,18 +272,8 @@ const avalancheFuji: Chain = {
   testnet: true,
 };
 
-// Map chain IDs to viem chain objects
+// Map chain IDs to viem chain objects (testnets only)
 const chainIdMap: Record<string, Chain> = {
-  eth: mainnet,
-  arb: arbitrum,
-  base: base,
-  op: optimism,
-  bsc: bsc,
-  bscTestnet: bscTestnet,
-  avax: avalanche,
-  scroll: scroll,
-  zora: zora,
-  flare: flare,
   coston2: coston2,
   // Testnet chains for Treasury
   sepolia: sepolia,
@@ -331,98 +287,8 @@ const chainIdMap: Record<string, Chain> = {
   avalancheFuji: avalancheFuji,
 };
 
-// All available chains (for reference)
+// All available chains (testnets only)
 const allChains: ChainData[] = [
-  {
-    id: "eth",
-    name: "Ethereum",
-    symbol: "ETH",
-    logo: "https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=026",
-    avgTxCost: 2.5,
-    nativePrice: 3000,
-    viemChain: mainnet,
-  },
-  {
-    id: "base",
-    name: "Base",
-    symbol: "ETH",
-    logo: "https://avatars.githubusercontent.com/u/108554348?s=200&v=4",
-    avgTxCost: 0.05,
-    nativePrice: 3000,
-    viemChain: base,
-  },
-  {
-    id: "arb",
-    name: "Arbitrum",
-    symbol: "ETH",
-    logo: "https://cryptologos.cc/logos/arbitrum-arb-logo.svg?v=026",
-    avgTxCost: 0.1,
-    nativePrice: 3000,
-    viemChain: arbitrum,
-  },
-  {
-    id: "op",
-    name: "Optimism",
-    symbol: "OP",
-    logo: "https://cryptologos.cc/logos/optimism-ethereum-op-logo.svg?v=026",
-    avgTxCost: 0.08,
-    nativePrice: 3.5,
-    viemChain: optimism,
-  },
-  {
-    id: "bsc",
-    name: "BNB Chain",
-    symbol: "BNB",
-    logo: "https://cryptologos.cc/logos/bnb-bnb-logo.svg?v=026",
-    avgTxCost: 0.15,
-    nativePrice: 600,
-    viemChain: bsc,
-  },
-  {
-    id: "avax",
-    name: "Avalanche",
-    symbol: "AVAX",
-    logo: "https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=026",
-    avgTxCost: 0.25,
-    nativePrice: 35,
-    viemChain: avalanche,
-  },
-  {
-    id: "scroll",
-    name: "Scroll",
-    symbol: "ETH",
-    logo: "/scrolllogo.png",
-    avgTxCost: 0.12,
-    nativePrice: 3000,
-    viemChain: scroll,
-  },
-  {
-    id: "zora",
-    name: "Zora",
-    symbol: "ETH",
-    logo: "https://zora.co/favicon.ico",
-    avgTxCost: 0.06,
-    nativePrice: 3000,
-    viemChain: zora,
-  },
-  {
-    id: "world",
-    name: "World",
-    symbol: "WLD",
-    logo: "https://cryptologos.cc/logos/worldcoin-wld-logo.svg?v=026",
-    avgTxCost: 0.05,
-    nativePrice: 5.0,
-    viemChain: base, // TODO: Replace with actual World chain when available
-  },
-  {
-    id: "flare",
-    name: "Flare",
-    symbol: "FLR",
-    logo: "/flarelogo.png",
-    avgTxCost: 0.01,
-    nativePrice: 0.02,
-    viemChain: flare,
-  },
   {
     id: "coston2",
     name: "Coston2",
@@ -516,8 +382,9 @@ const allChains: ChainData[] = [
   },
 ];
 
-// Source and destination chains: OP, World, Base, Arbitrum, Flare, Coston2 (in this order)
-const supportedChainIds = ["op", "world", "base", "arb", "flare", "coston2"] as const;
+// Source and destination chains: Testnet versions only
+// Using: Optimism Sepolia, World Sepolia, Base Sepolia, Arbitrum Sepolia, Coston2
+const supportedChainIds = ["optimismSepolia", "worldSepolia", "baseSepolia", "arbitrumSepolia", "coston2"] as const;
 export const SOURCE_CHAINS = supportedChainIds
   .map((id) => allChains.find((chain) => chain.id === id))
   .filter((chain): chain is ChainData => chain !== undefined);

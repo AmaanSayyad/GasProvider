@@ -321,16 +321,26 @@ export function registerTreasuryRoutes(
           sourceAmount: intent.sourceAmount,
           usdValue: intent.usdValue,
           status: intent.status,
-          distributions: intent.distributions.map((d) => ({
-            chainId: d.chainId,
-            chainName: d.chainName,
-            amount: d.amount,
-            amountFormatted: formatTokenAmount(BigInt(d.amount), 18),
-            status: d.status,
-            txHash: d.txHash,
-            confirmations: d.confirmations || 0,
-            error: d.error,
-          })),
+          distributions: intent.distributions.map((d) => {
+            // Calculate USD value for this distribution
+            // Get chain config to get USD price
+            const exchangeRates = priceCalculator.getAllExchangeRates();
+            const chainConfig = Object.values(exchangeRates.chains).find(c => c.chainId === d.chainId);
+            const amountInEth = Number(formatTokenAmount(BigInt(d.amount), 18));
+            const usdValue = chainConfig ? amountInEth * chainConfig.usdPrice : 0;
+            
+            return {
+              chainId: d.chainId,
+              chainName: d.chainName,
+              amount: d.amount,
+              amountFormatted: formatTokenAmount(BigInt(d.amount), 18),
+              usdValue: usdValue.toFixed(2),
+              status: d.status,
+              txHash: d.txHash,
+              confirmations: d.confirmations || 0,
+              error: d.error,
+            };
+          }),
           createdAt: intent.createdAt.toISOString(),
           updatedAt: intent.updatedAt.toISOString(),
           completedAt: intent.completedAt?.toISOString(),

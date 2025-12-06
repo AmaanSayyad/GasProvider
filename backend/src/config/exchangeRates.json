@@ -9,53 +9,71 @@
     "WFLR": 0.02
   },
   "chains": {
-    "1": {
-      "chainId": 1,
-      "name": "Ethereum",
-      "nativeSymbol": "ETH",
-      "usdPrice": 2000
-    },
-    "56": {
-      "chainId": 56,
-      "name": "BNB Chain",
-      "nativeSymbol": "BNB",
-      "usdPrice": 300
-    },
-    "137": {
-      "chainId": 137,
-      "name": "Polygon",
-      "nativeSymbol": "MATIC",
-      "usdPrice": 0.8
-    },
-    "43114": {
-      "chainId": 43114,
-      "name": "Avalanche",
-      "nativeSymbol": "AVAX",
-      "usdPrice": 25
-    },
-    "42161": {
-      "chainId": 42161,
-      "name": "Arbitrum",
-      "nativeSymbol": "ETH",
-      "usdPrice": 2000
-    },
-    "10": {
-      "chainId": 10,
-      "name": "Optimism",
-      "nativeSymbol": "ETH",
-      "usdPrice": 2000
-    },
-    "14": {
-      "chainId": 14,
-      "name": "Flare",
-      "nativeSymbol": "FLR",
-      "usdPrice": 0.02
-    },
     "114": {
       "chainId": 114,
       "name": "Coston2",
       "nativeSymbol": "C2FLR",
       "usdPrice": 0.02
+    },
+    "11155111": {
+      "chainId": 11155111,
+      "name": "Ethereum Sepolia",
+      "nativeSymbol": "ETH",
+      "usdPrice": 2000
+    },
+    "80002": {
+      "chainId": 80002,
+      "name": "Polygon Amoy",
+      "nativeSymbol": "MATIC",
+      "usdPrice": 0.8
+    },
+    "421614": {
+      "chainId": 421614,
+      "name": "Arbitrum Sepolia",
+      "nativeSymbol": "ETH",
+      "usdPrice": 2000
+    },
+    "11155420": {
+      "chainId": 11155420,
+      "name": "Optimism Sepolia",
+      "nativeSymbol": "ETH",
+      "usdPrice": 2000
+    },
+    "84532": {
+      "chainId": 84532,
+      "name": "Base Sepolia",
+      "nativeSymbol": "ETH",
+      "usdPrice": 2000
+    },
+    "4801": {
+      "chainId": 4801,
+      "name": "World Sepolia",
+      "nativeSymbol": "ETH",
+      "usdPrice": 2000
+    },
+    "999999999": {
+      "chainId": 999999999,
+      "name": "Zora Sepolia",
+      "nativeSymbol": "ETH",
+      "usdPrice": 2000
+    },
+    "534351": {
+      "chainId": 534351,
+      "name": "Scroll Sepolia",
+      "nativeSymbol": "ETH",
+      "usdPrice": 2000
+    },
+    "43113": {
+      "chainId": 43113,
+      "name": "Avalanche Fuji",
+      "nativeSymbol": "AVAX",
+      "usdPrice": 25
+    },
+    "97": {
+      "chainId": 97,
+      "name": "BSC Testnet",
+      "nativeSymbol": "tBNB",
+      "usdPrice": 300
     }
   }
 }

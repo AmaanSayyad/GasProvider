@@ -650,6 +650,7 @@ export interface TreasuryIntentDistribution {
   chainName: string;
   amount: string;
   amountFormatted: string;
+  usdValue: string;
   status: "pending" | "processing" | "confirmed" | "failed";
   txHash?: string;
   confirmations?: number;

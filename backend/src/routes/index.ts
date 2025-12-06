@@ -1710,7 +1710,14 @@ export function registerRoutes(
     const priceCalculator = getPriceCalculator();
     const prisma = new PrismaClient();
     const intentManager = getIntentManager(prisma, priceCalculator);
-    const transactionExecutor = new TransactionExecutor();
+    
+    // Initialize TransactionExecutor with distributor private key
+    const distributorPrivateKey = process.env.DISTRIBUTOR_PRIVATE_KEY || process.env.PRIVATE_KEY;
+    if (!distributorPrivateKey) {
+      console.warn("⚠️ No DISTRIBUTOR_PRIVATE_KEY found - transactions will fail");
+    }
+    const transactionExecutor = new TransactionExecutor(distributorPrivateKey);
+    
     const treasuryDistributionService = getTreasuryDistributionService(
       transactionExecutor,
       priceCalculator

@@ -77,7 +77,7 @@ export class PriceCalculator {
    * Get USD value of a token amount
    * 
    * @param token - Token symbol (e.g., "USDC", "FLR")
-   * @param amount - Token amount in base units (wei for 18 decimals)
+   * @param amount - Token amount in base units (wei for 18 decimals, or 6 for USDC/USDT)
    * @returns USD value as a number
    * 
    * Requirements: 4.1, 4.2
@@ -90,8 +90,13 @@ export class PriceCalculator {
       throw new Error(`Exchange rate not found for token: ${token}`);
     }
 
-    // Convert from wei (18 decimals) to token units
-    const tokenAmount = Number(amount) / 1e18;
+    // Determine decimals based on token type
+    // USDC and USDT use 6 decimals, most others use 18
+    const decimals = (tokenUpper === 'USDC' || tokenUpper === 'USDT') ? 6 : 18;
+    const divisor = 10 ** decimals;
+    
+    // Convert from base units to token units
+    const tokenAmount = Number(amount) / divisor;
     return tokenAmount * rate;
   }
 

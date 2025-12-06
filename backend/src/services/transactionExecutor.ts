@@ -201,7 +201,14 @@ export class TransactionExecutor {
         lastCheck: Date.now(),
       });
 
-      console.warn(`RPC health check failed for ${endpoint.url}:`, error);
+      // Only log health check failures once per hour to reduce spam
+      const lastLogKey = `health-log-${endpoint.url}`;
+      const lastLog = (this as any)[lastLogKey] || 0;
+      const now = Date.now();
+      if (now - lastLog > 3600000) { // 1 hour
+        console.warn(`RPC health check failed for ${endpoint.url}`);
+        (this as any)[lastLogKey] = now;
+      }
       return false;
     }
   }
@@ -346,18 +353,65 @@ export class TransactionExecutor {
           3,
           { chainId }
         );
-        const gasPrice = feeData.gasPrice || ethers.parseUnits("20", "gwei");
 
-        // Prepare transaction
-        const tx = {
-          to: transaction.to,
-          data: transaction.data,
-          value: transaction.value || 0n,
-          gasLimit,
-          gasPrice,
-          nonce,
-          chainId,
-        };
+        // Prepare transaction with EIP-1559 support
+        let tx: any;
+        if (feeData.maxFeePerGas && feeData.maxPriorityFeePerGas) {
+          // EIP-1559 transaction (Arbitrum, Optimism, Base, etc.)
+          
+          // For Arbitrum, use fixed higher gas prices due to unreliable RPC fee estimates
+          let maxFeePerGas: bigint;
+          let maxPriorityFeePerGas: bigint;
+          
+          if (chainId === 421614 || chainId === 42161) {
+            // Arbitrum: Use fixed 1 gwei to avoid underpriced transactions
+            maxFeePerGas = ethers.parseUnits("1", "gwei");
+            maxPriorityFeePerGas = ethers.parseUnits("0.1", "gwei");
+            console.log(`⛽ Using fixed Arbitrum gas prices: maxFee=1 gwei, priorityFee=0.1 gwei`);
+          } else {
+            // Other chains: Use RPC fee data with buffer
+            const bufferMultiplier = 120n;
+            maxFeePerGas = (feeData.maxFeePerGas * bufferMultiplier) / 100n;
+            maxPriorityFeePerGas = feeData.maxPriorityFeePerGas;
+            
+            // Ensure minimum gas price
+            const minGasPrice = ethers.parseUnits("0.1", "gwei");
+            if (maxFeePerGas < minGasPrice) {
+              console.warn(`⚠️ maxFeePerGas too low (${ethers.formatUnits(maxFeePerGas, "gwei")} gwei), using minimum ${ethers.formatUnits(minGasPrice, "gwei")} gwei`);
+              maxFeePerGas = minGasPrice;
+            }
+            if (maxPriorityFeePerGas < minGasPrice / 10n) {
+              maxPriorityFeePerGas = minGasPrice / 10n;
+            }
+            
+            console.log(`⛽ Gas prices for chain ${chainId}: maxFee=${ethers.formatUnits(maxFeePerGas, "gwei")} gwei, priorityFee=${ethers.formatUnits(maxPriorityFeePerGas, "gwei")} gwei`);
+          }
+          
+          tx = {
+            to: transaction.to,
+            data: transaction.data,
+            value: transaction.value || 0n,
+            gasLimit,
+            maxFeePerGas,
+            maxPriorityFeePerGas,
+            nonce,
+            chainId,
+            type: 2, // EIP-1559
+          };
+        } else {
+          // Legacy transaction
+          const gasPrice = feeData.gasPrice || ethers.parseUnits("20", "gwei");
+          
+          tx = {
+            to: transaction.to,
+            data: transaction.data,
+            value: transaction.value || 0n,
+            gasLimit,
+            gasPrice,
+            nonce,
+            chainId,
+          };
+        }
 
         // Send transaction with timeout
         const txResponse = await withTransactionTimeout(
@@ -530,10 +584,12 @@ export class TransactionExecutor {
   ): Promise<bigint> {
     try {
       const provider = await this.getProvider(chainId);
+      const signer = this.getSigner(chainId);
 
       const estimate = await withRpcRetry(
         () =>
           provider.estimateGas({
+            from: signer.address, // Include sender address for accurate estimation
             to: transaction.to,
             data: transaction.data,
             value: transaction.value || 0n,

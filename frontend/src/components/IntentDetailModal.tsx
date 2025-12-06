@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { X, CheckCircle, XCircle, Loader2, ExternalLink, Copy, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { fetchIntentStatus } from "../utils/api";
+import { useIntentStatus } from "../hooks/useIntentStatus";
 import { DepositIntent, ChainDispersalStatus } from "../types";
 import { getChainIdFromNumeric, getExplorerUrl, chains } from "../data/chains";
 
@@ -16,27 +16,16 @@ const IntentDetailModal: React.FC<IntentDetailModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  const [intent, setIntent] = useState<DepositIntent | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
   const [copiedHash, setCopiedHash] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (isOpen && intentId) {
-      setIsLoading(true);
-      setError(null);
-      fetchIntentStatus(intentId)
-        .then((response) => {
-          setIntent(response.intent);
-        })
-        .catch((err) => {
-          setError(err instanceof Error ? err : new Error("Unknown error"));
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
-  }, [isOpen, intentId]);
+  
+  // Use the useIntentStatus hook which handles both UUID and tx hash formats
+  const { data, isLoading, error } = useIntentStatus({
+    intentId,
+    enabled: isOpen && !!intentId,
+    pollInterval: 3000,
+  });
+  
+  const intent = data?.intent || null;
 
   const copyToClipboard = (text: string, hash: string) => {
     navigator.clipboard.writeText(text);

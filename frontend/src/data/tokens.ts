@@ -192,72 +192,51 @@ export const isStablecoin = (symbol: string): boolean => {
 import { Token } from "../types";
 import { getNumericChainId } from "./chains";
 
-// Token addresses for mainnet chains (Base, Arbitrum, Optimism, etc.)
-// These are the actual USDC addresses on mainnet chains
+// Token addresses for testnet chains only
 const TOKEN_ADDRESSES: Record<string, Record<string, string>> = {
-  // Base Mainnet
-  "8453": {
-    USDC: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+  // Coston2
+  "114": {
+    USDC: "0x...", // TODO: Add actual USDC address on Coston2
   },
   // Base Sepolia
   "84532": {
     USDC: "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
   },
-  // Arbitrum Mainnet
-  "42161": {
-    USDC: "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
-  },
   // Arbitrum Sepolia
   "421614": {
     USDC: "0x75faf114eafb1BDbe2F0316DF893fd58cE45AF0F",
-  },
-  // Optimism Mainnet
-  "10": {
-    USDC: "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85",
   },
   // Optimism Sepolia
   "11155420": {
     USDC: "0x5fd84259d66Cd46123540766Be93DFE6D43130D7",
   },
-  // Ethereum Mainnet
-  "1": {
-    USDC: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-  },
   // Ethereum Sepolia
   "11155111": {
     USDC: "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
-  },
-  // BSC Mainnet
-  "56": {
-    USDC: "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d",
   },
   // BSC Testnet
   "97": {
     USDC: "0x64544969ed7EBf5f083679AA3252b7A6a4D4b77E",
   },
-  // Avalanche Mainnet
-  "43114": {
-    USDC: "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E",
-  },
   // Avalanche Fuji
   "43113": {
     USDC: "0x5425890298aed601595a70AB815c96711a31Bc65",
-  },
-  // Scroll Mainnet
-  "534352": {
-    USDC: "0x06eFdBFf2a14a7c8E15944D1F4A48F9F95F663A4",
   },
   // Scroll Sepolia
   "534351": {
     USDC: "0x02a3e7E0480B668bD46b42852C58363F93e3bE5a",
   },
-  // Zora Mainnet
-  "7777777": {
-    USDC: "0x...", // TODO: Add actual USDC address on Zora
-  },
   // Zora Sepolia
   "999999999": {
     USDC: "0x...", // TODO: Add actual USDC address on Zora Sepolia
+  },
+  // World Sepolia
+  "4801": {
+    USDC: "0x...", // TODO: Add actual USDC address on World Sepolia
+  },
+  // Polygon Amoy
+  "80002": {
+    USDC: "0x...", // TODO: Add actual USDC address on Polygon Amoy
   },
 };
 

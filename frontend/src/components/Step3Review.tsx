@@ -60,11 +60,59 @@ const Step3Review: React.FC = () => {
     if (isLoading || isPending || isApproving) {
       setStatus("dispersing");
     } else if (isSuccess && depositTxHash) {
-      // Deposit transaction confirmed - navigate to execution step immediately
-      // Don't show success here - let Step2Execution handle that after polling confirms dispersion
+      // Deposit transaction confirmed - submit to backend and navigate
+      const submitToBackend = async () => {
+        try {
+          if (!address || !sourceChain) {
+            console.error("Missing address or sourceChain");
+            return;
+          }
+
+          // Calculate allocation percentages based on transaction counts
+          const totalTxCount = selectedChains.reduce(
+            (sum, chain) => sum + (transactionCounts[chain.id] || 10),
+            0
+          );
+          
+          const allocationPercentages = selectedChains.map((chain) => {
+            const txCount = transactionCounts[chain.id] || 10;
+            return (txCount / totalTxCount) * 100;
+          });
+
+          // Get numeric chain IDs
+          const destinationChainIds = selectedChains
+            .map((chain) => chain.viemChain?.id)
+            .filter((id): id is number => id !== undefined);
+
+          // Submit deposit to backend
+          const { submitTreasuryDeposit } = await import("../utils/api");
+          const response = await submitTreasuryDeposit({
+            userAddress: address,
+            sourceChain: sourceChain.viemChain?.id || 84532, // Base Sepolia default
+            sourceToken: "USDC",
+            amount: (depositAmount * 1e6).toString(), // Convert to USDC decimals
+            destinationChains: destinationChainIds,
+            allocationPercentages,
+          });
+
+          console.log("Backend response:", response);
+          
+          // Store the intent ID from backend response
+          if (response.intentId) {
+            setDepositTxHash(response.intentId); // Use intentId instead of txHash
+          } else {
+            setDepositTxHash(depositTxHash); // Fallback to txHash
+          }
+        } catch (err) {
+          console.error("Failed to submit to backend:", err);
+          // Still proceed with txHash as fallback
+          setDepositTxHash(depositTxHash);
+        }
+      };
+
       setTxHash(depositTxHash);
-      // Store transaction hash in context for Step2Execution
-      setDepositTxHash(depositTxHash);
+      submitToBackend();
+      
       // Navigate to execution step immediately to start polling
       setCurrentStep(3);
       
@@ -89,6 +137,11 @@ const Step3Review: React.FC = () => {
     setCurrentStep,
     setDepositTxHash,
     error,
+    address,
+    sourceChain,
+    selectedChains,
+    depositAmount,
+    transactionCounts,
   ]);
 
   const handleBack = (): void => setCurrentStep(1);

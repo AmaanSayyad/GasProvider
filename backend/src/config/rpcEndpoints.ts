@@ -36,21 +36,21 @@ export const RPC_CONFIGS: Record<number, ChainRpcConfig> = {
     ],
     healthCheckInterval: 60000, // 1 minute
   },
-  // Flare Mainnet
-  14: {
-    chainId: 14,
-    endpoints: [
-      {
-        url: process.env.FLARE_RPC_URL || "https://flare-api.flare.network/ext/C/rpc",
-        priority: 1,
-      },
-      {
-        url: "https://flare-api.flare.network/ext/C/rpc",
-        priority: 2,
-      },
-    ],
-    healthCheckInterval: 60000,
-  },
+  // Flare Mainnet (disabled for testnet-only mode)
+  // 14: {
+  //   chainId: 14,
+  //   endpoints: [
+  //     {
+  //       url: process.env.FLARE_RPC_URL || "https://flare-api.flare.network/ext/C/rpc",
+  //       priority: 1,
+  //     },
+  //     {
+  //       url: "https://flare-api.flare.network/ext/C/rpc",
+  //       priority: 2,
+  //     },
+  //   ],
+  //   healthCheckInterval: 60000,
+  // },
   // Ethereum Sepolia
   11155111: {
     chainId: 11155111,
@@ -62,14 +62,6 @@ export const RPC_CONFIGS: Record<number, ChainRpcConfig> = {
       {
         url: "https://ethereum-sepolia-rpc.publicnode.com",
         priority: 2,
-      },
-      {
-        url: "https://rpc.sepolia.org",
-        priority: 3,
-      },
-      {
-        url: "https://eth-sepolia.public.blastapi.io",
-        priority: 4,
       },
     ],
     healthCheckInterval: 60000,
@@ -105,10 +97,6 @@ export const RPC_CONFIGS: Record<number, ChainRpcConfig> = {
         url: "https://sepolia-rollup.arbitrum.io/rpc",
         priority: 2,
       },
-      {
-        url: "https://arbitrum-sepolia.blockpi.network/v1/rpc/public",
-        priority: 3,
-      },
     ],
     healthCheckInterval: 60000,
   },
@@ -123,10 +111,6 @@ export const RPC_CONFIGS: Record<number, ChainRpcConfig> = {
       {
         url: "https://sepolia.optimism.io",
         priority: 2,
-      },
-      {
-        url: "https://optimism-sepolia.blockpi.network/v1/rpc/public",
-        priority: 3,
       },
     ],
     healthCheckInterval: 60000,
@@ -154,48 +138,48 @@ export const RPC_CONFIGS: Record<number, ChainRpcConfig> = {
     ],
     healthCheckInterval: 60000,
   },
-  // BSC Mainnet (for future use)
-  56: {
-    chainId: 56,
-    endpoints: [
-      {
-        url: process.env.BSC_RPC_URL || "https://bsc-dataseed.binance.org",
-        priority: 1,
-      },
-      {
-        url: "https://bsc-dataseed.binance.org",
-        priority: 2,
-      },
-      {
-        url: "https://bsc-dataseed1.defibit.io",
-        priority: 3,
-      },
-      {
-        url: "https://bsc-dataseed1.ninicoin.io",
-        priority: 4,
-      },
-    ],
-    healthCheckInterval: 60000,
-  },
-  // Avalanche Mainnet (for future use)
-  43114: {
-    chainId: 43114,
-    endpoints: [
-      {
-        url: process.env.AVAX_RPC_URL || "https://api.avax.network/ext/bc/C/rpc",
-        priority: 1,
-      },
-      {
-        url: "https://api.avax.network/ext/bc/C/rpc",
-        priority: 2,
-      },
-      {
-        url: "https://avalanche-c-chain-rpc.publicnode.com",
-        priority: 3,
-      },
-    ],
-    healthCheckInterval: 60000,
-  },
+  // BSC Mainnet (disabled for testnet-only mode)
+  // 56: {
+  //   chainId: 56,
+  //   endpoints: [
+  //     {
+  //       url: process.env.BSC_RPC_URL || "https://bsc-dataseed.binance.org",
+  //       priority: 1,
+  //     },
+  //     {
+  //       url: "https://bsc-dataseed.binance.org",
+  //       priority: 2,
+  //     },
+  //     {
+  //       url: "https://bsc-dataseed1.defibit.io",
+  //       priority: 3,
+  //     },
+  //     {
+  //       url: "https://bsc-dataseed1.ninicoin.io",
+  //       priority: 4,
+  //     },
+  //   ],
+  //   healthCheckInterval: 60000,
+  // },
+  // Avalanche Mainnet (disabled for testnet-only mode)
+  // 43114: {
+  //   chainId: 43114,
+  //   endpoints: [
+  //     {
+  //       url: process.env.AVAX_RPC_URL || "https://api.avax.network/ext/bc/C/rpc",
+  //       priority: 1,
+  //     },
+  //     {
+  //       url: "https://api.avax.network/ext/bc/C/rpc",
+  //       priority: 2,
+  //     },
+  //     {
+  //       url: "https://avalanche-c-chain-rpc.publicnode.com",
+  //       priority: 3,
+  //     },
+  //   ],
+  //   healthCheckInterval: 60000,
+  // },
   // Avalanche Fuji Testnet
   43113: {
     chainId: 43113,
@@ -275,10 +259,6 @@ export const RPC_CONFIGS: Record<number, ChainRpcConfig> = {
       {
         url: "https://sepolia-rpc.scroll.io",
         priority: 2,
-      },
-      {
-        url: "https://scroll-sepolia.blockpi.network/v1/rpc/public",
-        priority: 3,
       },
     ],
     healthCheckInterval: 60000,
