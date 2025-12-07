@@ -185,10 +185,10 @@ const IntentDetailModal: React.FC<IntentDetailModalProps> = ({
                     </div>
                   </div>
 
-                  {/* Source Transaction */}
+                  {/* Source UUID */}
                   <div className="mt-6 pt-6 border-t border-theme">
                     <div className="text-xs text-secondary uppercase tracking-wider mb-2">
-                      Source Transaction
+                      Source UUID
                     </div>
                     <div className="flex items-center gap-2">
                       <code className="flex-1 bg-theme-muted px-3 py-2 rounded-lg text-sm font-mono break-all text-theme">
