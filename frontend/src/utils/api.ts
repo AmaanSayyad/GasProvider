@@ -663,6 +663,7 @@ export interface TreasuryIntentStatusResponse {
   sourceChain: number;
   sourceToken: string;
   sourceAmount: string;
+  sourceTxHash?: string | null;
   usdValue: number;
   status: "created" | "validating" | "distributing" | "completed" | "failed";
   distributions: TreasuryIntentDistribution[];

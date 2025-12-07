@@ -312,6 +312,23 @@ export function registerTreasuryRoutes(
           return reply.code(404).send(error);
         }
 
+        // Get source transaction hash from database
+        // The Intent model doesn't include sourceTxHash, so we fetch it from DB
+        let sourceTxHash: string | null = null;
+        try {
+          // Access prisma through IntentManager (it's a private property, but we need it)
+          const prisma = (intentManager as any).prisma;
+          if (prisma) {
+            const dbIntent = await prisma.intent.findUnique({
+              where: { id: intent.id },
+              select: { sourceTxHash: true },
+            });
+            sourceTxHash = dbIntent?.sourceTxHash || null;
+          }
+        } catch (error) {
+          console.warn(`Failed to fetch sourceTxHash for intent ${intent.id}:`, error);
+        }
+
         // Build response with detailed status
         const response = {
           intentId: intent.id,
@@ -319,6 +336,7 @@ export function registerTreasuryRoutes(
           sourceChain: intent.sourceChain,
           sourceToken: intent.sourceToken,
           sourceAmount: intent.sourceAmount,
+          sourceTxHash: sourceTxHash,
           usdValue: intent.usdValue,
           status: intent.status,
           distributions: intent.distributions.map((d) => {

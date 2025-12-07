@@ -12,6 +12,7 @@ import ReferralProgram from "./components/ReferralProgram";
 import Gamification from "./components/Gamification";
 import VoiceCommands from "./components/VoiceCommands";
 import ReferralBanner from "./components/ReferralBanner";
+import DeploymentAlert from "./components/DeploymentAlert";
 import GasPools from "./components/GasPools";
 import LiquidityProvider from "./components/LiquidityProvider";
 import NexusProvider, { useNexus } from "./components/nexus/NexusProvider";
@@ -44,6 +45,9 @@ const MainContent: React.FC = () => {
 
   return (
     <div className="space-y-8">
+      {/* Deployment Alert - Shows on production/Vercel deployments */}
+      <DeploymentAlert />
+      
       {/* Referral Banner - Shows when user visits with ?ref=CODE */}
       <ReferralBanner />
       

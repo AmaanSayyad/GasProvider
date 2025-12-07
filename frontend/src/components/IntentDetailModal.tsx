@@ -89,14 +89,14 @@ const IntentDetailModal: React.FC<IntentDetailModalProps> = ({
           initial={{ scale: 0.95, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.95, opacity: 0, y: 20 }}
-          className="relative w-full max-w-4xl bg-[#1c1c1e] border border-white/10 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+          className="relative w-full max-w-4xl glass-card border border-theme rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
         >
           {/* Header */}
-          <div className="p-6 border-b border-white/10 flex items-center justify-between sticky top-0 bg-[#1c1c1e] z-10">
-            <h2 className="text-2xl font-bold">Intent Details</h2>
+          <div className="p-6 border-b border-theme flex items-center justify-between sticky top-0 glass-card z-10">
+            <h2 className="text-2xl font-bold text-theme">Intent Details</h2>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-white/10 rounded-full transition-colors"
+              className="p-2 hover:bg-theme-muted rounded-full transition-colors"
             >
               <X className="w-6 h-6 text-secondary" />
             </button>
@@ -119,7 +119,7 @@ const IntentDetailModal: React.FC<IntentDetailModalProps> = ({
               <div className="space-y-6">
                 {/* Overview Card */}
                 <div className="glass-card rounded-2xl p-6">
-                  <h3 className="text-lg font-bold mb-4">Overview</h3>
+                  <h3 className="text-lg font-bold mb-4 text-theme">Overview</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <div className="text-xs text-secondary uppercase tracking-wider mb-2">
@@ -144,7 +144,7 @@ const IntentDetailModal: React.FC<IntentDetailModalProps> = ({
                       <div className="text-xs text-secondary uppercase tracking-wider mb-2">
                         Total Amount
                       </div>
-                      <div className="text-2xl font-bold">
+                      <div className="text-2xl font-bold text-theme">
                         ${parseFloat(intent.amountInUsd).toFixed(2)}
                       </div>
                     </div>
@@ -167,7 +167,7 @@ const IntentDetailModal: React.FC<IntentDetailModalProps> = ({
                                   className="w-6 h-6 rounded-full"
                                 />
                               )}
-                              <span className="font-medium">
+                              <span className="font-medium text-theme">
                                 {chain?.name || `Chain ${intent.sourceChainId}`}
                               </span>
                             </>
@@ -179,26 +179,26 @@ const IntentDetailModal: React.FC<IntentDetailModalProps> = ({
                       <div className="text-xs text-secondary uppercase tracking-wider mb-2">
                         Destination Chains
                       </div>
-                      <div className="text-xl font-bold">
+                      <div className="text-xl font-bold text-theme">
                         {intent.chainStatuses.length}
                       </div>
                     </div>
                   </div>
 
                   {/* Source Transaction */}
-                  <div className="mt-6 pt-6 border-t border-border">
+                  <div className="mt-6 pt-6 border-t border-theme">
                     <div className="text-xs text-secondary uppercase tracking-wider mb-2">
                       Source Transaction
                     </div>
                     <div className="flex items-center gap-2">
-                      <code className="flex-1 bg-background/50 px-3 py-2 rounded-lg text-sm font-mono break-all">
+                      <code className="flex-1 bg-theme-muted px-3 py-2 rounded-lg text-sm font-mono break-all text-theme">
                         {intent.sourceTxHash}
                       </code>
                       <button
                         onClick={() =>
                           copyToClipboard(intent.sourceTxHash, intent.sourceTxHash)
                         }
-                        className="p-2 hover:bg-background/50 rounded-lg transition-colors"
+                        className="p-2 hover:bg-theme-muted rounded-lg transition-colors"
                         title="Copy transaction hash"
                       >
                         {copiedHash === intent.sourceTxHash ? (
@@ -207,17 +207,22 @@ const IntentDetailModal: React.FC<IntentDetailModalProps> = ({
                           <Copy className="w-4 h-4 text-secondary" />
                         )}
                       </button>
-                      <a
-                        href={`${getExplorerUrl(
-                          getChainIdFromNumeric(intent.sourceChainId) || "base"
-                        )}/tx/${intent.sourceTxHash}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-2 hover:bg-background/50 rounded-lg transition-colors"
-                        title="View on explorer"
-                      >
-                        <ExternalLink className="w-4 h-4 text-primary" />
-                      </a>
+                      {/* Only show explorer link if sourceTxHash is a valid transaction hash (starts with 0x and is 66 chars) */}
+                      {intent.sourceTxHash && 
+                       intent.sourceTxHash.startsWith('0x') && 
+                       intent.sourceTxHash.length === 66 && (
+                        <a
+                          href={`${getExplorerUrl(
+                            getChainIdFromNumeric(intent.sourceChainId) || "base"
+                          )}/tx/${intent.sourceTxHash}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2 hover:bg-theme-muted rounded-lg transition-colors"
+                          title="View on explorer"
+                        >
+                          <ExternalLink className="w-4 h-4 text-primary" />
+                        </a>
+                      )}
                     </div>
                   </div>
 
@@ -242,7 +247,7 @@ const IntentDetailModal: React.FC<IntentDetailModalProps> = ({
 
                 {/* Destination Chains */}
                 <div className="glass-card rounded-2xl p-6">
-                  <h3 className="text-lg font-bold mb-4">Destination Chains</h3>
+                  <h3 className="text-lg font-bold mb-4 text-theme">Destination Chains</h3>
                   <div className="space-y-3">
                     {intent.chainStatuses.map((chain, index) => {
                       const chainId = getChainIdFromNumeric(chain.chainId);
@@ -252,7 +257,7 @@ const IntentDetailModal: React.FC<IntentDetailModalProps> = ({
                       return (
                         <div
                           key={index}
-                          className="bg-background/30 rounded-xl p-4 border border-border"
+                          className="bg-theme-muted rounded-xl p-4 border border-theme"
                         >
                           <div className="flex items-start justify-between mb-3">
                             <div className="flex items-center gap-3">
@@ -264,7 +269,7 @@ const IntentDetailModal: React.FC<IntentDetailModalProps> = ({
                                 />
                               )}
                               <div>
-                                <div className="font-semibold">
+                                <div className="font-semibold text-theme">
                                   {chainConfig?.name ||
                                     chain.chainName ||
                                     `Chain ${chain.chainId}`}
@@ -289,7 +294,7 @@ const IntentDetailModal: React.FC<IntentDetailModalProps> = ({
                               <div className="text-xs text-secondary mb-1">
                                 Amount
                               </div>
-                              <div className="font-semibold">
+                              <div className="font-semibold text-theme">
                                 ${parseFloat(chain.amountUsd).toFixed(2)}
                               </div>
                             </div>
@@ -299,7 +304,7 @@ const IntentDetailModal: React.FC<IntentDetailModalProps> = ({
                                   Transaction
                                 </div>
                                 <div className="flex items-center gap-2">
-                                  <code className="flex-1 bg-background/50 px-2 py-1 rounded text-xs font-mono truncate">
+                                  <code className="flex-1 bg-theme-muted px-2 py-1 rounded text-xs font-mono truncate text-theme">
                                     {chain.txHash.slice(0, 10)}...
                                     {chain.txHash.slice(-8)}
                                   </code>
@@ -307,7 +312,7 @@ const IntentDetailModal: React.FC<IntentDetailModalProps> = ({
                                     onClick={() =>
                                       copyToClipboard(chain.txHash!, chain.txHash!)
                                     }
-                                    className="p-1 hover:bg-background/50 rounded transition-colors"
+                                    className="p-1 hover:bg-muted rounded transition-colors"
                                     title="Copy"
                                   >
                                     {copiedHash === chain.txHash ? (
@@ -321,7 +326,7 @@ const IntentDetailModal: React.FC<IntentDetailModalProps> = ({
                                       href={chain.explorerUrl}
                                       target="_blank"
                                       rel="noopener noreferrer"
-                                      className="p-1 hover:bg-background/50 rounded transition-colors"
+                                      className="p-1 hover:bg-muted rounded transition-colors"
                                       title="View on explorer"
                                     >
                                       <ExternalLink className="w-3 h-3 text-primary" />
