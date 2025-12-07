@@ -51,7 +51,7 @@ const DeploymentAlert: React.FC = () => {
               </p>
               <div className="flex flex-wrap gap-3 mt-4">
                 <a
-                  href="https://github.com/AmaanSayyad/Gas-Provider"
+                  href="https://github.com/AmaanSayyad/GasProvider"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-4 py-2 bg-primary/90 hover:bg-primary text-white rounded-lg font-medium transition-all shadow-md hover:shadow-lg"
