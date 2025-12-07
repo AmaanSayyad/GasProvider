@@ -809,3 +809,8 @@ Contributions are welcome! Please follow these guidelines:
 2. Create a feature branch
 3. Make your changes with tests
 4. Submit a pull request
+
+## Links
+
+- **Pitch Deck:** https://docs.google.com/presentation/d/1dcDHlryNzrDfVudiqPB-xnrNiIX9w971PFaoAP4Jztk/edit?usp=sharing
+- **Pitch + Demo Video:** https://drive.google.com/file/d/1ysR1alZ418DzUM7PM9SSMkiwXTO0UyIM/view?usp=sharing
