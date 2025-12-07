@@ -269,6 +269,18 @@ appkit-modal * {
   color: var(--w3m-color-fg-1) !important;
 }
 
+/* Ensure all text elements are visible */
+.light w3m-modal p,
+.light appkit-modal p,
+.light w3m-modal span,
+.light appkit-modal span,
+.light w3m-modal div,
+.light appkit-modal div,
+.light w3m-modal a,
+.light appkit-modal a {
+  color: var(--w3m-color-fg-1) !important;
+}
+
 .light w3m-modal [class*="w3m-color-fg-2"] *,
 .light appkit-modal [class*="w3m-color-fg-2"] *,
 .light w3m-modal [class*="secondary"] *,
@@ -287,6 +299,60 @@ appkit-modal * {
 
 .light w3m-modal input,
 .light appkit-modal input {
+  color: var(--w3m-color-fg-1) !important;
+  background-color: var(--w3m-color-bg-1) !important;
+  border-color: var(--border) !important;
+}
+
+/* Provider list visibility - ensure all wallet providers are visible */
+.light w3m-modal [class*="w3m-wallet-button"],
+.light appkit-modal [class*="w3m-wallet-button"],
+.light w3m-modal [class*="wallet-button"],
+.light appkit-modal [class*="wallet-button"],
+.light w3m-modal [data-testid*="wallet"],
+.light appkit-modal [data-testid*="wallet"] {
+  color: var(--w3m-color-fg-1) !important;
+  background-color: var(--w3m-color-bg-1) !important;
+  border-color: var(--border) !important;
+}
+
+/* Swap and Send options visibility */
+.light w3m-modal [class*="swap"],
+.light appkit-modal [class*="swap"],
+.light w3m-modal [class*="send"],
+.light appkit-modal [class*="send"],
+.light w3m-modal [class*="action"],
+.light appkit-modal [class*="action"] {
+  color: var(--w3m-color-fg-1) !important;
+  background-color: var(--w3m-color-bg-1) !important;
+}
+
+/* List items and cards in modal */
+.light w3m-modal li,
+.light appkit-modal li,
+.light w3m-modal [class*="list-item"],
+.light appkit-modal [class*="list-item"],
+.light w3m-modal [class*="card"],
+.light appkit-modal [class*="card"] {
+  color: var(--w3m-color-fg-1) !important;
+  background-color: var(--w3m-color-bg-1) !important;
+  border-color: var(--border) !important;
+}
+
+/* Ensure hover states are visible */
+.light w3m-modal button:hover,
+.light appkit-modal button:hover,
+.light w3m-modal [role="button"]:hover,
+.light appkit-modal [role="button"]:hover {
+  background-color: var(--w3m-color-bg-2) !important;
+  color: var(--w3m-color-fg-1) !important;
+}
+
+/* Dark mode provider visibility */
+.dark w3m-modal [class*="w3m-wallet-button"],
+.dark appkit-modal [class*="w3m-wallet-button"],
+.dark w3m-modal [class*="wallet-button"],
+.dark appkit-modal [class*="wallet-button"] {
   color: var(--w3m-color-fg-1) !important;
   background-color: var(--w3m-color-bg-1) !important;
   border-color: var(--border) !important;
@@ -341,4 +407,154 @@ appkit-modal * {
 
 .light [class*="bg-white/20"] {
   background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Comprehensive AppKit modal visibility fixes */
+/* Target all possible provider/wallet list containers */
+.light appkit-modal [class*="w3m-grid"],
+.light appkit-modal [class*="w3m-list"],
+.light appkit-modal [class*="w3m-container"],
+.light appkit-modal [class*="w3m-content"],
+.light appkit-modal [class*="w3m-view"],
+.light appkit-modal [class*="w3m-page"],
+.dark appkit-modal [class*="w3m-grid"],
+.dark appkit-modal [class*="w3m-list"],
+.dark appkit-modal [class*="w3m-container"],
+.dark appkit-modal [class*="w3m-content"],
+.dark appkit-modal [class*="w3m-view"],
+.dark appkit-modal [class*="w3m-page"] {
+  background-color: var(--w3m-color-bg-1) !important;
+  color: var(--w3m-color-fg-1) !important;
+}
+
+/* Ensure all clickable items in provider list are visible */
+.light appkit-modal [class*="w3m-wallet-button"] *,
+.light appkit-modal [class*="wallet-button"] *,
+.light appkit-modal [class*="w3m-wallet"] *,
+.light appkit-modal [data-testid*="wallet"] * {
+  color: var(--w3m-color-fg-1) !important;
+}
+
+/* Fix for swap and send action buttons */
+.light appkit-modal [class*="w3m-action"],
+.light appkit-modal [class*="action-button"],
+.light appkit-modal [class*="swap-button"],
+.light appkit-modal [class*="send-button"] {
+  color: var(--w3m-color-fg-1) !important;
+  background-color: var(--w3m-color-bg-1) !important;
+  border-color: var(--border) !important;
+}
+
+/* Fix for any grid or flex containers showing providers */
+.light appkit-modal [class*="grid"],
+.light appkit-modal [class*="flex"],
+.light appkit-modal [style*="display: grid"],
+.light appkit-modal [style*="display: flex"] {
+  background-color: var(--w3m-color-bg-1) !important;
+}
+
+/* Ensure images/logos in wallet buttons are visible */
+.light appkit-modal img,
+.light appkit-modal svg {
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+/* Fix for any overlay or backdrop that might be hiding content */
+.light appkit-modal [class*="overlay"],
+.light appkit-modal [class*="backdrop"] {
+  background-color: var(--w3m-color-overlay) !important;
+}
+
+/* Ensure all interactive elements have proper contrast */
+.light appkit-modal [tabindex],
+.light appkit-modal [role="menuitem"],
+.light appkit-modal [role="option"] {
+  color: var(--w3m-color-fg-1) !important;
+  background-color: var(--w3m-color-bg-1) !important;
+}
+
+/* Fix for search input in provider list */
+.light appkit-modal [type="search"],
+.light appkit-modal [type="text"],
+.light appkit-modal input[placeholder] {
+  color: var(--w3m-color-fg-1) !important;
+  background-color: var(--w3m-color-bg-1) !important;
+  border-color: var(--border) !important;
+}
+
+.light appkit-modal input::placeholder {
+  color: var(--w3m-color-fg-2) !important;
+  opacity: 0.7 !important;
+}
+
+/* Ensure modal content is visible and properly layered */
+appkit-modal,
+w3m-modal {
+  z-index: 9999 !important;
+}
+
+appkit-modal > *,
+w3m-modal > * {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Fix visibility for collapsed/hidden content that should be visible */
+.light appkit-modal [class*="w3m-wallet-button"][style*="display: none"],
+.light appkit-modal [class*="wallet-button"][style*="display: none"] {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Ensure provider list items are not hidden */
+.light appkit-modal [class*="w3m-wallet-button"],
+.light appkit-modal [class*="wallet-button"],
+.light appkit-modal [data-testid*="wallet"],
+.light appkit-modal [class*="provider"] {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: var(--w3m-color-fg-1) !important;
+  background-color: var(--w3m-color-bg-1) !important;
+}
+
+/* Fix for swap and send sections */
+.light appkit-modal [class*="swap"],
+.light appkit-modal [class*="send"],
+.light appkit-modal [class*="transfer"],
+.light appkit-modal [class*="w3m-swap"],
+.light appkit-modal [class*="w3m-send"] {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: var(--w3m-color-fg-1) !important;
+  background-color: var(--w3m-color-bg-1) !important;
+}
+
+/* Ensure all modal content containers have proper backgrounds */
+appkit-modal [class*="w3m-container"],
+appkit-modal [class*="w3m-content"],
+appkit-modal [class*="w3m-view"],
+appkit-modal [class*="w3m-page"],
+appkit-modal [class*="w3m-grid"],
+appkit-modal [class*="w3m-list"] {
+  background-color: var(--w3m-color-bg-1) !important;
+}
+
+/* Fix for provider selection view */
+appkit-modal [class*="w3m-provider"],
+appkit-modal [class*="w3m-wallet-list"],
+appkit-modal [class*="w3m-wallet-grid"] {
+  background-color: var(--w3m-color-bg-1) !important;
+  color: var(--w3m-color-fg-1) !important;
+}
+
+/* Ensure all child elements inherit visibility */
+appkit-modal [class*="w3m-container"] *,
+appkit-modal [class*="w3m-content"] *,
+appkit-modal [class*="w3m-view"] * {
+  color: inherit !important;
 }
