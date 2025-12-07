@@ -259,7 +259,7 @@ To use Flare-specific features:
 - [Backend README](backend/README.md): API documentation and environment variables
 - [Frontend README](frontend/README.md): Frontend setup and development
 - [Contracts README](contracts/README.md): Smart contract documentation
-- [Flare Integration Spec](.kiro/specs/flare-integration/): Detailed integration design
+- [Flare Integration Spec](docs/FLARE_INTEGRATION_FILES.md/): Detailed integration design
 
 ## Project Structure
 
