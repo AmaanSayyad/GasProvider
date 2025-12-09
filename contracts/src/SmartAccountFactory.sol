@@ -107,11 +107,11 @@ contract SmartAccountFactory {
      * @param eoaAddresses Array of EOA addresses
      * @return Array of deployed Smart Account addresses
      */
-    function deployAccountsBatch(address[] calldata eoaAddresses) external returns (address[] memory) {
+    function deployAccountsBatch(address[] calldata eoaAddresses) public returns (address[] memory) {
         address[] memory deployedAccounts = new address[](eoaAddresses.length);
 
         for (uint256 i = 0; i < eoaAddresses.length; i++) {
-            deployedAccounts[i] = deployAccount(eoaAddresses[i]);
+            deployedAccounts[i] = this.deployAccount(eoaAddresses[i]);  // Avoid this if possible
         }
 
         return deployedAccounts;
