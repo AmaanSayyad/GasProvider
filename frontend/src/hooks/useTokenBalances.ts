@@ -43,12 +43,17 @@ export const useTokenBalances = (chainId: string): UseTokenBalancesReturn => {
 
   // Filter tokens that are available on this chain
   const availableTokens = useMemo(() => {
+    const isFlareChain = chainId === 'coston2' || chainId === 'flare' || 
+                         (viemChain && (viemChain.id === 114 || viemChain.id === 14));
+    
     return tokens.filter((token: Token) => {
       const tokenAddress = getTokenAddress(chainId, token.symbol);
       // Include token if it's native OR has an address on this chain
-      return token.isNative || tokenAddress !== null;
+      // OR if it's an FAsset on a Flare chain (even without address yet)
+      const isFAssetOnFlare = token.isFAsset && isFlareChain;
+      return token.isNative || tokenAddress !== null || isFAssetOnFlare;
     });
-  }, [chainId]);
+  }, [chainId, viemChain]);
 
   // Prepare contract calls for ERC20 tokens
   const contracts = useMemo(() => {
@@ -140,11 +145,12 @@ export const useTokenBalances = (chainId: string): UseTokenBalancesReturn => {
             )
           : 0;
 
+      // For FAssets without addresses, show balance as 0 (will be fetched separately if needed)
       return {
         ...token,
-        balance,
+        balance: tokenAddress ? balance : (token.isFAsset ? 0 : balance),
         address: tokenAddress,
-        isLoading: contractsLoading,
+        isLoading: tokenAddress ? contractsLoading : false,
       };
     }).filter((t: Token | null): t is Token => t !== null); // Remove null entries
   }, [chainId, availableTokens, nativeBalance, nativeLoading, contractData, contractsLoading]);

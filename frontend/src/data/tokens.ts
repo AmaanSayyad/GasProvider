@@ -28,6 +28,31 @@ export const SUPPORTED_TOKENS: Record<number, TokenInfo[]> = {
       address: "0x...", // TODO: Add actual USDC address on Coston2
       decimals: 6,
     },
+    // FAssets (will be populated from environment or contract)
+    {
+      symbol: "FBTC",
+      name: "Flare Bitcoin",
+      address: "0x...", // Will be resolved from environment
+      decimals: 18,
+    },
+    {
+      symbol: "FXRP",
+      name: "Flare XRP",
+      address: "0x...", // Will be resolved from environment
+      decimals: 18,
+    },
+    {
+      symbol: "FDOGE",
+      name: "Flare Dogecoin",
+      address: "0x...", // Will be resolved from environment
+      decimals: 18,
+    },
+    {
+      symbol: "FLTC",
+      name: "Flare Litecoin",
+      address: "0x...", // Will be resolved from environment
+      decimals: 18,
+    },
   ],
   // Ethereum Sepolia
   11155111: [
@@ -197,6 +222,11 @@ const TOKEN_ADDRESSES: Record<string, Record<string, string>> = {
   // Coston2
   "114": {
     USDC: "0x...", // TODO: Add actual USDC address on Coston2
+    // FAssets - addresses will be loaded from environment or contract
+    FBTC: "0x...", // Will be resolved from environment
+    FXRP: "0x...", // Will be resolved from environment
+    FDOGE: "0x...", // Will be resolved from environment
+    FLTC: "0x...", // Will be resolved from environment
   },
   // Base Sepolia
   "84532": {
@@ -340,5 +370,54 @@ export const tokens: Token[] = [
     isNative: false,
     address: null, // Address will be resolved per chain
     isLoading: false,
+  },
+  // FAssets (Flare Wrapped Assets)
+  {
+    symbol: "FBTC",
+    name: "Flare Bitcoin",
+    balance: 0,
+    logo: "https://cryptologos.cc/logos/bitcoin-btc-logo.svg?v=026",
+    isNative: false,
+    address: null, // Address will be resolved per chain
+    isLoading: false,
+    isFAsset: true,
+    underlyingAsset: "BTC",
+    underlyingLogo: "https://cryptologos.cc/logos/bitcoin-btc-logo.svg?v=026",
+  },
+  {
+    symbol: "FXRP",
+    name: "Flare XRP",
+    balance: 0,
+    logo: "/xrp.jpg",
+    isNative: false,
+    address: null, // Address will be resolved per chain
+    isLoading: false,
+    isFAsset: true,
+    underlyingAsset: "XRP",
+    underlyingLogo: "/xrp.jpg",
+  },
+  {
+    symbol: "FDOGE",
+    name: "Flare Dogecoin",
+    balance: 0,
+    logo: "https://cryptologos.cc/logos/dogecoin-doge-logo.svg?v=026",
+    isNative: false,
+    address: null, // Address will be resolved per chain
+    isLoading: false,
+    isFAsset: true,
+    underlyingAsset: "DOGE",
+    underlyingLogo: "https://cryptologos.cc/logos/dogecoin-doge-logo.svg?v=026",
+  },
+  {
+    symbol: "FLTC",
+    name: "Flare Litecoin",
+    balance: 0,
+    logo: "https://cryptologos.cc/logos/litecoin-ltc-logo.svg?v=026",
+    isNative: false,
+    address: null, // Address will be resolved per chain
+    isLoading: false,
+    isFAsset: true,
+    underlyingAsset: "LTC",
+    underlyingLogo: "https://cryptologos.cc/logos/litecoin-ltc-logo.svg?v=026",
   },
 ];

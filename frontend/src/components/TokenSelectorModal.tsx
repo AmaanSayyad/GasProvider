@@ -312,8 +312,12 @@ const TokenSelectorModal: React.FC<TokenSelectorModalProps> = ({
                                   }}
                                 />
                                 {/* FAsset badge */}
-                                <div className="absolute -bottom-1 -right-1 bg-primary rounded-full px-1.5 py-0.5 border-2 border-theme-muted">
-                                  <span className="text-[8px] font-bold text-white">F</span>
+                                <div className="absolute -bottom-1 -right-1 bg-theme-muted rounded-full p-0.5 border-2 border-theme-muted shadow-md">
+                                  <img
+                                    src="/flarelogo.png"
+                                    alt="Flare"
+                                    className="w-4 h-4 rounded-full"
+                                  />
                                 </div>
                               </div>
                             ) : (

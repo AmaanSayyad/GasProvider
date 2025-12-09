@@ -102,15 +102,36 @@ export const GasFountainProvider: React.FC<GasFountainProviderProps> = ({
           
           // Fallback to wagmi balance if not found in unified balance
           const wagmiToken = wagmiBalances.find((wt) => wt.symbol === token.symbol);
-          return wagmiToken || { ...token, balance: 0, address: null, isLoading: false };
-        });
+          
+          // Include FAssets on Flare chains even without address
+          const isFlareChain = sourceChain && (sourceChain.id === 'coston2' || sourceChain.id === 'flare');
+          const tokenAddress = getTokenAddress(sourceChain.id, token.symbol);
+          const shouldInclude = token.isNative || tokenAddress !== null || (token.isFAsset && isFlareChain);
+          
+          if (wagmiToken) {
+            return wagmiToken;
+          }
+          
+          if (!shouldInclude) {
+            return null as any;
+          }
+          
+          return { ...token, balance: 0, address: tokenAddress || null, isLoading: false };
+        }).filter((t: Token | null): t is Token => t !== null);
         
         return chainBalances;
       }
     }
     
     // Fallback to wagmi balances if unified balance not available
-    return wagmiBalances;
+    // Filter to include FAssets on Flare chains
+    const isFlareChain = sourceChain && (sourceChain.id === 'coston2' || sourceChain.id === 'flare');
+    const filteredWagmiBalances = (wagmiBalances || []).filter((token: Token) => {
+      const tokenAddress = getTokenAddress(sourceChain?.id || '', token.symbol);
+      return token.isNative || tokenAddress !== null || (token.isFAsset && isFlareChain);
+    });
+    
+    return filteredWagmiBalances;
   }, [unifiedBalance, sourceChain, wagmiBalances]);
   
   const balancesLoading = wagmiLoading;
